@@ -13,12 +13,16 @@
                         <tbody>
 
 
-
+@if ($posts->count()>0)
     @foreach($posts as $post)
   <tr>
 
                                 <td><img src="{{$post->featured}}" width="50px" height="50px" alt="{{$post->title}}"></td>
-                                <td>{{$post->title}}</td>
+                                @if(!$search_by)
+                                    <td>{{$post->title}}</td>
+                                @else
+                                    <td>{!!str_ireplace($search_by, $replace_word, $post->title) !!}</td>
+                                @endif
                                 <td>{{$post->category->name}}</td>
                                  <td>
                                     @foreach ($post->tags as $post_tag)
@@ -31,6 +35,9 @@
 
     </tr>
      @endforeach
+@else
+    <tr><th>No results Found</th></tr>
+@endif
 
    
  </tbody>

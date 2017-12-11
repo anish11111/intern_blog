@@ -1,3 +1,4 @@
+<div id="load" style="position: relative;">
 <table class="table table-hover">
                         <thead>
                             <tr>
@@ -34,5 +35,5 @@
    
  </tbody>
  </table>
-
- {{ $posts->links() }}
+</div>
+ {{-- {{ $posts->links() }} --}}

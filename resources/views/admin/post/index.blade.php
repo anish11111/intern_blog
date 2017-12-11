@@ -99,7 +99,7 @@
  		});
  	});
  </script>
- <script type="text/javascript">
+ {{-- <script type="text/javascript">
  	// $(document).ready(function(){
  		$(document).on('click','.pagination a', function(event){
  			event.preventDefault();
@@ -122,5 +122,5 @@
             }
  	// });
 
- </script>
+ </script> --}}
 @endsection

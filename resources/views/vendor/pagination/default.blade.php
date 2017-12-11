@@ -20,7 +20,12 @@
                     @if ($page == $paginator->currentPage())
                         <li class="active"><span>{{ $page }}</span></li>
                     @else
-                        <li><a href="{{ $url }}">{{ $page }}</a></li>
+                        <li><a href="" onclick="
+                            event.preventDefault();
+                            $.get('{{ $url }}',function(data){
+                             $('#itemsToShow').html(data);
+                });
+                            ">{{ $page }}</a></li>
                     @endif
                 @endforeach
             @endif
