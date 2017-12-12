@@ -99,8 +99,8 @@
  		});
  	});
  </script>
- {{-- <script type="text/javascript">
- 	// $(document).ready(function(){
+ <script type="text/javascript">
+ 	
  		$(document).on('click','.pagination a', function(event){
  			event.preventDefault();
 			 $('#load').append('<img style="position: absolute; left: 150px; top: 0; z-index: 100000;" src="{{asset('uploads/loading2.gif')}}" />');
@@ -120,7 +120,7 @@
                     alert('Posts could not be loaded.');
                 });
             }
- 	// });
+ 	
 
- </script> --}}
+ </script>
 @endsection

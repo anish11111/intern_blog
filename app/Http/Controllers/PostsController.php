@@ -31,6 +31,7 @@ class PostsController extends Controller
         }else{
 
             $posts = Post::with('tags')->where('title','like',"%{$search_by}%")->paginate(4);
+//dd($posts);
             $replace_word = '<span style="background-color:yellow;">'.$search_by.'</span>';
             return view('admin.post.tableajax',compact('posts','search_by','replace_word'));
         }
@@ -39,7 +40,8 @@ class PostsController extends Controller
         { 
             $cat = $request->cat;
             $tag = $request->tag;
-
+            $search_by='';
+            $replace_word='';
             if (is_null($cat)||is_null($tag)) {
 
               $posts = Post::with('tags')->paginate(4);
@@ -48,13 +50,11 @@ class PostsController extends Controller
               // dd($posts);
               //forajax pagiantion
               if ($request->ajax()) {
-                $search_by='';
-                $replace_word='';
+                
                return view('admin.post.tableajax',compact('posts','categories','tags','search_by','replace_word'));  
                //return view('admin.post.tableajax',['posts'=> $posts,$categories,$tags]);  
               } else {
-                $search_by='';
-                $replace_word='';
+                
                   return view('admin.post.index',compact('posts','categories','tags','search_by','replace_word'));  
               } 
     //for search by all
@@ -63,21 +63,25 @@ class PostsController extends Controller
                $posts = Post::with('tags')->paginate(4);
                $categories = Category::all();
                $tags = Tag::all();
-               $search_by='';
-                $replace_word='';
+              
                return view('admin.post.tableajax',compact('posts','categories','tags','search_by','replace_word')); 
      //for search by tag
             }elseif($cat == 'all' && $tag != 'all' ){
+
               $tags = Tag::with('posts')->where('tag',$tag)->get();
-               // $tags = Tag::where('tag',$tag)->posts()->get();
-              
-               // dd($tags);
-                return view('admin.post.searchbytag',compact('tags'));
+                  // $posts = Post::with(['tags'=>function($query){
+                  //       $query->where('tag',$tag);
+                  //   }])->get();
+                   // $tags = Tag::where('tag',$tag)->posts()->get();
+                 // $tags->load('posts');
+                    //dd($tags);
+            return view('admin.post.searchbytag',compact('tags'));
     //for search by category
             }elseif ($cat != 'all' && $tag == 'all') {
-                $posts = Post::with('tags')->where('category_id',$cat)->get();
+                $posts = Post::with('tags')->where('category_id',$cat)->paginate(4);
+
                 //dd($posts);
-                return view('admin.post.searchbycat',compact('posts')); 
+                return view('admin.post.searchbycat',compact('posts','cat')); 
     //for search by category and tag
             }elseif ($cat != 'all' && $tag != 'all') {
                  $tags = Tag::with('posts')->where('tag',$tag)->get();

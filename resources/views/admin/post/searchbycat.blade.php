@@ -21,10 +21,9 @@
                                 <td>{{$post->category->name}}</td>
                                 <td>
                                     @foreach ($post->tags as $post_tag)
-                                        <span style="background-color:#0de2a2;color:white;padding: 2px;border-radius: 5px;"> 
-                                            {{$post_tag->tag}}
-                                        </span>
+                                    <span style="background-color:#0de2a2;color:white;padding: 2px;border-radius: 5px">{{$post_tag->tag}}</span>
                                     @endforeach
+                                                
                                 </td>
                                 <td><a href="{{route('post.edit',['id'=>$post->id])}}" class="btn btn-xs btn-info">Edit</a> &nbsp / &nbsp
                                 <a href="{{route('post.delete',['id'=>$post->id])}}" class="btn btn-xs btn-danger">Destroy</a></td>
@@ -36,4 +35,4 @@
  </tbody>
  </table>
 </div>
- {{-- {{ $posts->links() }} --}}
+ {{ $posts->appends(['cat' => $cat,'tag'=>'all'])->links() }}
